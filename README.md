@@ -1,8 +1,13 @@
 ## Related Repository
 
-- https://github.com/nagadomi/cutorch
-- https://github.com/nagadomi/cunn
-- https://github.com/nagadomi/cudnn.torch
+- nagadomi
+  - https://github.com/nagadomi/cutorch
+  - https://github.com/nagadomi/cunn
+  - https://github.com/nagadomi/cudnn.torch
+- mobtgzhang
+  - https://github.com/mobtgzhang/cutorch
+  - https://github.com/mobtgzhang/cunn
+  - https://github.com/mobtgzhang/cudnn
 
 For Ubuntu 20.04, use `ubuntu20.04-ppa` branch. See [#12](https://github.com/nagadomi/distro/issues/12).
 
