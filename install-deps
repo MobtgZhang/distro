@@ -187,7 +187,7 @@ elif [[ "$(uname)" == 'Linux' ]]; then
         elif [[ $ubuntu_major_version -lt '14' ]]; then # 12.xx
             sudo -E add-apt-repository -y ppa:chris-lea/zeromq
         elif [[ $ubuntu_major_version -lt '15' ]]; then # 14.xx
-	    sudo -E apt-get install -y software-properties-common
+	        sudo -E apt-get install -y software-properties-common
             sudo -E add-apt-repository -y ppa:jtaylor/ipython
         else
             sudo apt-get install -y software-properties-common \
@@ -201,9 +201,9 @@ elif [[ "$(uname)" == 'Linux' ]]; then
             echo "Some portion of the update is failed"
         fi
         sudo apt-get install -y build-essential gcc g++ curl \
-            cmake libreadline-dev git-core libqt4-dev libjpeg-dev \
-            libpng-dev ncurses-dev imagemagick libzmq3-dev gfortran \
-            unzip gnuplot gnuplot-x11 ipython
+            cmake libreadline-dev git qtbase5-dev libjpeg-dev \
+            libpng-dev libncurses-dev imagemagick libzmq3-dev gfortran \
+            unzip gnuplot gnuplot-x11 ipython3
 
         gcc_major_version=$(gcc --version | grep ^gcc | awk '{print $4}' | \
                             cut -c 1)
@@ -226,9 +226,9 @@ elif [[ "$(uname)" == 'Linux' ]]; then
             echo "Some portion of the update is failed"
         fi
         sudo apt-get install -y build-essential gcc g++ curl \
-            cmake libreadline-dev git-core libqt4-dev libjpeg-dev \
-            libpng-dev ncurses-dev imagemagick libzmq3-dev gfortran \
-            unzip gnuplot gnuplot-x11 ipython
+            cmake libreadline-dev git qtbase5-dev libjpeg-dev \
+            libpng-dev libncurses-dev imagemagick libzmq3-dev gfortran \
+            unzip gnuplot gnuplot-x11 ipython3
 
         install_openblas || true
 
@@ -240,11 +240,11 @@ elif [[ "$(uname)" == 'Linux' ]]; then
         fi
         sudo zypper install -y -t pattern devel_basis
 	if [[ $opensuse_major_version == '42.2' ]]; then
-	    sudo zypper install -y gcc curl cmake readline-devel IPython git-core \
+	    sudo zypper install -y gcc curl cmake readline-devel IPython git \
             	libqt4 libjpeg62-devel libpng16-compat-devel ImageMagick unzip \
             	gnuplot gcc-fortran libzmq5
 	else
-            sudo zypper install -y gcc curl cmake readline-devel IPython git-core \
+            sudo zypper install -y gcc curl cmake readline-devel IPython git \
             	libqt4 libjpeg8-devel libpng15-compat-devel imagemagick unzip \
             	gnuplot gcc-fortran libzmq3
 	fi
@@ -252,10 +252,10 @@ elif [[ "$(uname)" == 'Linux' ]]; then
     elif [[ $distribution == 'elementary' ]]; then
         declare -a target_pkgs
         target_pkgs=( build-essential gcc g++ curl \
-                      cmake libreadline-dev git-core libqtcore4 libqtgui4 \
-                      libqt4-dev libjpeg-dev libpng-dev ncurses-dev \
+                      cmake libreadline-dev git libqtcore4 libqtgui4 \
+                      qtbase5-dev libjpeg-dev libpng-dev libncurses-dev \
                       imagemagick libzmq3-dev gfortran unzip gnuplot \
-                      gnuplot-x11 ipython )
+                      gnuplot-x11 ipython3 )
         if sudo apt-get update ; then
             echo "Updated successfully."
         else
@@ -289,7 +289,7 @@ elif [[ "$(uname)" == 'Linux' ]]; then
             cmake curl readline ncurses git \
             gnuplot unzip libjpeg-turbo libpng libpng \
             imagemagick graphicsmagick fftw sox zeromq \
-            ipython qt4 qt5-webkit || exit 1
+            ipython3 qt4 qt5-webkit || exit 1
         pacman -Sl multilib &>/dev/null
         if [[ $? -ne 0 ]]; then
             multilib=
@@ -314,7 +314,7 @@ elif [[ "$(uname)" == 'Linux' ]]; then
                                 ImageMagick GraphicsMagick-devel fftw-devel \
                                 sox-devel sox zeromq3-devel \
                                 qt-devel qtwebkit-devel sox-plugins-freeworld \
-                                ipython
+                                ipython3
             install_openblas || true
         elif [[ $fedora_major_version -ge '22' ||  $fedora_major_version -le '26' ]]; then
             #using dnf - since yum has been deprecated
@@ -371,8 +371,8 @@ elif [[ "$(uname)" == 'Linux' ]]; then
 	    fi
 	    #Basic package required for Torch
 	    sudo apt-get install -y build-essential curl \
-		 cmake libreadline-dev git-core libqt4-dev libjpeg-dev \
-		 libpng-dev ncurses-dev imagemagick libzmq3-dev gfortran \
+		 cmake libreadline-dev git qtbase5-dev libjpeg-dev \
+		 libpng-dev libncurses-dev imagemagick libzmq3-dev gfortran \
 		 unzip gnuplot gnuplot-x11 ipython
 
 	    #require for common torch plug-ins
@@ -395,9 +395,9 @@ else
     exit 1
 fi
 
-ipython_exists=$(command -v ipython) || true
+ipython_exists=$(command -v ipython3) || true
 if [[ $ipython_exists ]]; then {
-    ipython_version=$(ipython --version|cut -f1 -d'.')
+    ipython_version=$(ipython3 --version|cut -f1 -d'.')
     if [[ $ipython_version -lt 2 ]]; then {
         echo 'WARNING: Your ipython version is too old.  Type "ipython --version" to see this.  Should be at least version 2'
     } fi
